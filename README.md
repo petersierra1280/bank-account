@@ -27,7 +27,7 @@ A **live demo** can be found at: https://bank-account.onrender.com/ (hosted on [
     -   `minAmount` (query): **number** - The minimum transaction amount to filter by (optional).
     -   `maxAmount` (query): **number** - The maximum transaction amount to filter by (optional).
 
-**Example Request:**
+**Example request:**
 ```
 curl -X GET "http://localhost:3000/transactions?accountId=account1&type=debit&sortField=date&sortOrder=asc&minAmount=10&maxAmount=100"
 ```
@@ -42,7 +42,7 @@ curl -X GET "http://localhost:3000/transactions?accountId=account1&type=debit&so
 -   **Parameters:**
     -   `accountId` (path): **string** - The ID of the account to retrieve the balance for.
 
-**Example Request:**
+**Example request:**
 ```
 curl -X GET "http://localhost:3000/transactions/balance/account1"
 ```
@@ -61,7 +61,7 @@ curl -X GET "http://localhost:3000/transactions/balance/account1"
 **Special considerations:**
    - If the current balance for the account is lower than the cost for the debit, this endpoint will throw an HTTP `400` error code with the message `Insufficient funds`.
 
-**Example Request:**
+**Example request:**
 ```
 curl -X POST "http://localhost:3000/transactions/debit" -H "Content-Type: application/json" -d '{"accountId": "account1", "cost": 50}'
 ```
@@ -77,7 +77,7 @@ curl -X POST "http://localhost:3000/transactions/debit" -H "Content-Type: applic
     -   `accountId` (body): **string** - The ID of the account to credit to.
     -   `amount` (body): **number** - The amount to credit.
 
-**Example Request:**
+**Example request:**
 ```
 curl -X POST "http://localhost:3000/transactions/credit" -H "Content-Type: application/json" -d '{"accountId": "account1", "amount": 100}'
 ```
@@ -100,7 +100,7 @@ curl -X POST "http://localhost:3000/transactions/credit" -H "Content-Type: appli
  - This endpoint doesn't allow to update the `accountId` of a transaction (for security and data integrity purposes).
  - If the `transactionId` provided in the URL doesn't exist in the database, this endpoint will throw an HTTP `404` error code with the message `This transaction ID is not valid`.
 
-**Example Request:**
+**Example request:**
 ```
 curl -X PUT "http://localhost:3000/transactions/account1" -H "Content-Type: application/json" -d '{"cost": 60}'
 ```
@@ -119,7 +119,7 @@ curl -X PUT "http://localhost:3000/transactions/account1" -H "Content-Type: appl
    - If a `credit` transaction is being deleted and the current balance for the account is lower than the amount for the credit, this endpoint will throw an HTTP `400` error code with the message `This deletion cannot be processed, otherwise balance will be negative`.
    - If the `transactionId` provided in the URL doesn't exist in the database, this endpoint will throw an HTTP `404` error code with the message `This transaction ID is not valid`.
 
-**Example Request:**
+**Example request:**
 ```
 curl -X DELETE "http://localhost:3000/transactions/account1"
 ```
