@@ -1,10 +1,10 @@
 # Banking account transactions API
 
-Within the description of this API will be found endpoints for performing transactions against a specific banking account. Even though in the requirements of this exercise it wasn't specified to handle multiple accounts, defining the model and endpoints to receive an account ID seemed the best scenario thinking on scalling the application.
+Within the description of this API will be found endpoints for performing transactions against a specific banking account. Even though the requirements of this exercise it wasn't specified to handle multiple accounts, defining the model and endpoints to receive an account ID seemed the best scenario thinking on scaling the application.
 
 A **live demo** can be found at: https://bank-account.onrender.com/ (hosted on [render](https://render.com/)).
 
-> **Note:** If this URL hasn't been accessed in a while, there will be a cold start from ~50 secs, since the instance spins down with inactivity.
+> **Note:** If this URL hasn't been accessed in a while, there will be a cold start from ~50 seconds, since the instance spins down with inactivity.
 
 ## Tech stack used
 
@@ -18,7 +18,7 @@ A **live demo** can be found at: https://bank-account.onrender.com/ (hosted on [
 ### 1. Get all transactions
 
 -   **URL:** `GET /transactions`
--   **Description:** Retrieves all transactions for a specific account, with optional filtering and sorting params.
+-   **Description:** Retrieves all transactions for a specific account, with optional filtering and sorting parameters.
 -   **Parameters:**
     -   `accountId` (query): **string** - The ID of the account to retrieve transactions for (optional, if not provided this will list the whole list of transactions).
     -   `type` (query): **string** - The type of transactions to retrieve (optional, can be `debit` or `credit`).
@@ -32,7 +32,7 @@ A **live demo** can be found at: https://bank-account.onrender.com/ (hosted on [
 curl -X GET "http://localhost:3000/?accountId=12345&type=debit&sortField=date&sortOrder=asc&minAmount=10&maxAmount=100"
 ```
 **Response:**
-```
+```json
 [ { "accountId": "12345", "type": "debit", "cost": 50, "date": "2023-01-01T00:00:00.000Z" }, ... ]
 ```
 ### 2. Get total balance
@@ -44,45 +44,45 @@ curl -X GET "http://localhost:3000/?accountId=12345&type=debit&sortField=date&so
 
 **Example Request:**
 ```
-`curl -X GET "http://localhost:3000/balance/12345"`
+curl -X GET "http://localhost:3000/balance/12345"
 ```
 **Response:**
-```
+```json
 { "balance": 250.75 }
 ```
 ### 3. Debit transaction
 
 -   **URL:** `POST /transactions/debit`
--   **Description:** Creates a new debit transaction for a specific account.
+-   **Description:** Create a new debit transaction for a specific account.
 -   **Parameters:**
     -   `accountId` (body): **string** - The ID of the account to debit from.
     -   `cost` (body): **number** - The amount to debit.
 
 **Special considerations:**
-   - If the current balance for the account is lower than the cost for the debit, this endpoint will throw a HTTP `400` error code with the message `Insufficient funds`.
+   - If the current balance for the account is lower than the cost for the debit, this endpoint will throw an HTTP `400` error code with the message `Insufficient funds`.
 
 **Example Request:**
 ```
-`curl -X POST "http://localhost:3000/debit" -H "Content-Type: application/json" -d '{"accountId": "12345", "cost": 50}'`
+curl -X POST "http://localhost:3000/debit" -H "Content-Type: application/json" -d '{"accountId": "12345", "cost": 50}'
 ```
 **Response:**
-```
+```json
 { "accountId": "12345", "type": "debit", "cost": 50, "date": "2023-01-01T00:00:00.000Z" }
 ```
 ### 4. Credit transaction
 
 -   **URL:** `POST /transactions/credit`
--   **Description:** Creates a new credit transaction for a specific account.
+-   **Description:** Create a new credit transaction for a specific account.
 -   **Parameters:**
     -   `accountId` (body): **string** - The ID of the account to credit to.
     -   `amount` (body): **number** - The amount to credit.
 
 **Example Request:**
 ```
-`curl -X POST "http://localhost:3000/credit" -H "Content-Type: application/json" -d '{"accountId": "12345", "amount": 100}'`
+curl -X POST "http://localhost:3000/credit" -H "Content-Type: application/json" -d '{"accountId": "12345", "amount": 100}'
 ```
 **Response:**
-```
+```json
 { "accountId": "12345", "type": "credit", "amount": 100, "date": "2023-01-01T00:00:00.000Z" }
 ```
 ### 5. Edit transaction
@@ -95,17 +95,17 @@ curl -X GET "http://localhost:3000/?accountId=12345&type=debit&sortField=date&so
     -   `amount` (body): **number** - The amount of the credit transaction (optional).
     
 **Special considerations:**
- - If a `debit` transaction is being updated and the current balance for the account is lower than the cost for the debit, this endpoint will throw a HTTP `400` error code with the message `This update cannot be processed, otherwise balance will be negative`.
- - This endpoint doesn't allow to update the `type` of a transaction (security and data integrity purposes).
- - This endpoint doesn't allow to update the `accountId` of a transaction (security and data integrity purposes).
- - If the `transactionId` provided in the URL doesn't exist in the database, this endpoint will throw a HTTP `404` error code with the message `This transaction ID is not valid`.
+ - If a `debit` transaction is being updated and the current balance for the account is lower than the cost for the debit, this endpoint will throw an HTTP `400` error code with the message `This update cannot be processed, otherwise balance will be negative`.
+ - This endpoint doesn't allow to update the `type` of a transaction (for security and data integrity purposes).
+ - This endpoint doesn't allow to update the `accountId` of a transaction (for security and data integrity purposes).
+ - If the `transactionId` provided in the URL doesn't exist in the database, this endpoint will throw an HTTP `404` error code with the message `This transaction ID is not valid`.
 
 **Example Request:**
 ```
-`curl -X PUT "http://localhost:3000/12345" -H "Content-Type: application/json" -d '{"cost": 60}'`
+curl -X PUT "http://localhost:3000/12345" -H "Content-Type: application/json" -d '{"cost": 60}'
 ```
 **Response:**
-```
+```json
 { "accountId": "12345", "type": "debit", "cost": 60, "date": "2023-01-01T00:00:00.000Z" }
 ```
 ### 6. Delete transaction
@@ -116,15 +116,15 @@ curl -X GET "http://localhost:3000/?accountId=12345&type=debit&sortField=date&so
     -   `id` (path): **string** - The ID of the transaction to delete.
 
 **Special considerations:**
-   - If a `credit` transaction is being deleted and the current balance for the account is lower than the amount for the credit, this endpoint will throw a HTTP `400` error code with the message `This deletion cannot be processed, otherwise balance will be negative`.
-   - If the `transactionId` provided in the URL doesn't exist in the database, this endpoint will throw a HTTP `404` error code with the message `This transaction ID is not valid`.
+   - If a `credit` transaction is being deleted and the current balance for the account is lower than the amount for the credit, this endpoint will throw an HTTP `400` error code with the message `This deletion cannot be processed, otherwise balance will be negative`.
+   - If the `transactionId` provided in the URL doesn't exist in the database, this endpoint will throw an HTTP `404` error code with the message `This transaction ID is not valid`.
 
 **Example Request:**
 ```
-`curl -X DELETE "http://localhost:3000/12345"`
+curl -X DELETE "http://localhost:3000/12345"
 ```
 **Response:**
-```
+```json
 {}
 ```
 ## MongoDB schema
@@ -147,7 +147,7 @@ A couple of indexes were defined for faster searches using these fields:
 
 This is the collection used to seed the database with some basic records:
 
-```
+```js
 [
 
 { accountId:  'account1', type:  'debit', cost:  10.00 },
@@ -163,7 +163,7 @@ A Mongo Atlas cluster was created in order to simplify the deployment and config
 
 ## Configuration and execution
 
-In order to run this application locally, a `.env` file needs to be created within the `/src` folder (excluded from the Github repo for security reasons). Please use as an example the `.env.example` file, which contains the following variables:
+To run this application locally, a `.env` file needs to be created within the `/src` folder (excluded from the Github repo for security reasons). Please use as an example the [`.env.example`](https://github.com/petersierra1280/bank-account/blob/main/src/.env.example) file, which contains the following variables:
 
 ```
 PORT=3000
@@ -174,7 +174,7 @@ MONGO_PASSWORD=""
 MONGO_CLUSTER_URL=""
 MONGO_DATABASE_NAME=""
 ```
-Consider that this configuration expects a MongoDB cluster URL, since Mongo Atlas was used for deploying the database and avoid any issue and get rid of dependencies with a MongoDB instance running locally.
+Consider that this configuration expects a MongoDB cluster URL since Mongo Atlas was used for deploying the database and avoiding any issues and get rid of dependencies with a MongoDB instance running locally.
 
 ### Commands available:
 - `npm start`: Starts the application (used for production purposes).
