@@ -159,7 +159,11 @@ This is the collection used to seed the database with some basic records:
 
 ### Mongo Atlas for deploying the database
 
-A Mongo Atlas cluster was created in order to simplify the deployment and configuration of this application. See the images below to see the cluster and database.
+A Mongo Atlas cluster was created in order to simplify the deployment and configuration of this application. Find some images below to see the cluster and database.
+
+![Mongo Atlas cluster](https://github.com/user-attachments/assets/eeb16980-4df6-4502-8efa-77c534ad764b)
+
+![Mongo Atlas database](https://github.com/user-attachments/assets/ed1c1bab-874c-4c72-a730-a7e737e1333c)
 
 ## Configuration and execution
 
