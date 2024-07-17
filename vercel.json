@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/transactions/(.*)",
-            "dest": "index.js"
+            "dest": "/index.js"
         }
     ],
     "build": {
