@@ -18,7 +18,7 @@ app.use(errorMiddleware);
 
 // Routes
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to the bank account transaction API!' })
+    res.json({ message: 'Welcome to the bank account transactions API!' })
 })
 app.use('/transactions', accountTransactionsRoutes);
 
