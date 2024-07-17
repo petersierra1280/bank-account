@@ -17,6 +17,9 @@ app.use(express.json());
 app.use(errorMiddleware);
 
 // Routes
+app.get('/', (req, res) => {
+    res.json({ message: 'Welcome to the bank account transaction API!' })
+})
 app.use('/transactions', accountTransactionsRoutes);
 
 (async () => {
