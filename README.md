@@ -29,11 +29,11 @@ A **live demo** can be found at: https://bank-account.onrender.com/ (hosted on [
 
 **Example Request:**
 ```
-curl -X GET "http://localhost:3000/?accountId=12345&type=debit&sortField=date&sortOrder=asc&minAmount=10&maxAmount=100"
+curl -X GET "http://localhost:3000/transactions?accountId=account1&type=debit&sortField=date&sortOrder=asc&minAmount=10&maxAmount=100"
 ```
 **Response:**
 ```json
-[ { "accountId": "12345", "type": "debit", "cost": 50, "date": "2023-01-01T00:00:00.000Z" }, ... ]
+[ { "accountId": "account1", "type": "debit", "cost": 50, "date": "2023-01-01T00:00:00.000Z" }, ... ]
 ```
 ### 2. Get total balance
 
@@ -44,7 +44,7 @@ curl -X GET "http://localhost:3000/?accountId=12345&type=debit&sortField=date&so
 
 **Example Request:**
 ```
-curl -X GET "http://localhost:3000/balance/12345"
+curl -X GET "http://localhost:3000/transactions/balance/account1"
 ```
 **Response:**
 ```json
@@ -63,11 +63,11 @@ curl -X GET "http://localhost:3000/balance/12345"
 
 **Example Request:**
 ```
-curl -X POST "http://localhost:3000/debit" -H "Content-Type: application/json" -d '{"accountId": "12345", "cost": 50}'
+curl -X POST "http://localhost:3000/transactions/debit" -H "Content-Type: application/json" -d '{"accountId": "account1", "cost": 50}'
 ```
 **Response:**
 ```json
-{ "accountId": "12345", "type": "debit", "cost": 50, "date": "2023-01-01T00:00:00.000Z" }
+{ "accountId": "account1", "type": "debit", "cost": 50, "date": "2023-01-01T00:00:00.000Z" }
 ```
 ### 4. Credit transaction
 
@@ -79,11 +79,11 @@ curl -X POST "http://localhost:3000/debit" -H "Content-Type: application/json" -
 
 **Example Request:**
 ```
-curl -X POST "http://localhost:3000/credit" -H "Content-Type: application/json" -d '{"accountId": "12345", "amount": 100}'
+curl -X POST "http://localhost:3000/transactions/credit" -H "Content-Type: application/json" -d '{"accountId": "account1", "amount": 100}'
 ```
 **Response:**
 ```json
-{ "accountId": "12345", "type": "credit", "amount": 100, "date": "2023-01-01T00:00:00.000Z" }
+{ "accountId": "account1", "type": "credit", "amount": 100, "date": "2023-01-01T00:00:00.000Z" }
 ```
 ### 5. Edit transaction
 
@@ -102,11 +102,11 @@ curl -X POST "http://localhost:3000/credit" -H "Content-Type: application/json" 
 
 **Example Request:**
 ```
-curl -X PUT "http://localhost:3000/12345" -H "Content-Type: application/json" -d '{"cost": 60}'
+curl -X PUT "http://localhost:3000/transactions/account1" -H "Content-Type: application/json" -d '{"cost": 60}'
 ```
 **Response:**
 ```json
-{ "accountId": "12345", "type": "debit", "cost": 60, "date": "2023-01-01T00:00:00.000Z" }
+{ "accountId": "account1", "type": "debit", "cost": 60, "date": "2023-01-01T00:00:00.000Z" }
 ```
 ### 6. Delete transaction
 
@@ -121,7 +121,7 @@ curl -X PUT "http://localhost:3000/12345" -H "Content-Type: application/json" -d
 
 **Example Request:**
 ```
-curl -X DELETE "http://localhost:3000/12345"
+curl -X DELETE "http://localhost:3000/transactions/account1"
 ```
 **Response:**
 ```json
