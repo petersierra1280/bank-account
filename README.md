@@ -171,9 +171,12 @@ A Mongo Atlas cluster was created in order to simplify the deployment and config
 
 ![Mongo Atlas database](https://github.com/user-attachments/assets/ed1c1bab-874c-4c72-a730-a7e737e1333c)
 
+![Querying the collections](https://github.com/user-attachments/assets/8eabfd16-95c5-459d-84c8-92b204a465a8)
+
+
 ## Configuration and execution
 
-To run this application locally, a `.env` file needs to be created within the `/src` folder (excluded from the Github repo for security reasons). Please use as an example the [`.env.example`](https://github.com/petersierra1280/bank-account/blob/main/src/.env.example) file, which contains the following variables:
+To run this application locally, a `.env` file must be created within the `/src` folder (excluded from the Github repo for security reasons). Please use as an example the [`.env.example`](https://github.com/petersierra1280/bank-account/blob/main/src/.env.example) file, which contains the following variables:
 
 ```
 PORT=3000
@@ -184,7 +187,7 @@ MONGO_PASSWORD=""
 MONGO_CLUSTER_URL=""
 MONGO_DATABASE_NAME=""
 ```
-Consider that this configuration expects a MongoDB cluster URL since Mongo Atlas was used for deploying the database and avoiding any issues and get rid of dependencies with a MongoDB instance running locally.
+Consider that this configuration expects a MongoDB cluster URL since Mongo Atlas was used for deploying the database, avoiding any issues, and getting rid of dependencies with a MongoDB instance running locally.
 
 ### Commands available:
 - `npm start`: Starts the application (used for production purposes).
