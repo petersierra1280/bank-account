@@ -12,6 +12,7 @@ A **live demo** can be found at: https://bank-account.onrender.com/ (hosted on [
 - MongoDB and `mongoose`.
 - `nodemon` for development purposes.
 - `jest` for unit tests (the MongoDB connection was mocked using the package `mongodb-memory-server`).
+- `dotenv` for reading environment variables.
 
 ## Endpoints
 
