@@ -3,7 +3,6 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const Transaction = require('../models/transaction');
 const transactionRepo = require('../repositories/transactionsRepository');
 const transactionTypes = require('../utils/enums');
-const { creditTransaction } = require('../routes/accountTransactions.controller');
 
 const { debit, credit } = transactionTypes;
 

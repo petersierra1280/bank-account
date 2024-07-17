@@ -85,7 +85,7 @@ const editTransaction = async (req, res) => {
         const transactionBeforeUpdate = await transactionRepo.getTransactionById(transactionId);
 
         if (!transactionBeforeUpdate) {
-            return res.status(400).json({ error: 'This transaction ID is not valid' });
+            return res.status(404).json({ error: 'This transaction ID is not valid' });
         }
 
         const { type, accountId } = transactionBeforeUpdate;
@@ -115,7 +115,7 @@ const deleteTransaction = async (req, res) => {
         const transactionId = req.params.id;
         const transactionBeforeDelete = await transactionRepo.getTransactionById(transactionId);
         if (!transactionBeforeDelete) {
-            return res.status(400).json({ error: 'Invalid transaction ID provided' });
+            return res.status(404).json({ error: 'Invalid transaction ID provided' });
         }
         const { type, amount, accountId } = transactionBeforeDelete;
         const totalBalance = await transactionRepo.getTotalBalance(accountId);
