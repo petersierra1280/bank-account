@@ -27,6 +27,9 @@ A **live demo** can be found at: https://bank-account.onrender.com/ (hosted on [
     -   `minAmount` (query): **number** - The minimum transaction amount to filter by (optional).
     -   `maxAmount` (query): **number** - The maximum transaction amount to filter by (optional).
 
+**Special considerations:**
+   - When using the `minAmount` and `maxAmount` filtering parameters, they both need to be specified. If only one of them is sent on the request, this parameter will be discarded.
+
 **Example request:**
 ```
 curl -X GET "http://localhost:3000/transactions?accountId=account1&type=debit&sortField=date&sortOrder=asc&minAmount=10&maxAmount=100"
@@ -156,6 +159,8 @@ This is the collection used to seed the database with some basic records:
 
 ];
 ```
+
+The seeding of the database automatically happens when the application starts (more info in the [`index.js`](https://github.com/petersierra1280/bank-account/blob/main/src/index.js) file).
 
 ### Mongo Atlas for deploying the database
 
