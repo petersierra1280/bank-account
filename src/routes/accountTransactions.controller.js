@@ -24,7 +24,13 @@ const getAllTransactions = async (req, res) => {
 
 const getTotalBalance = async (req, res) => {
     try {
+        const { user } = req;
         const { accountId } = req.params;
+
+        if (user.accountId !== accountId) {
+            return res.status(400).json({ error: 'Not allowed to see transactions for a different account' });
+        }
+
         const balance = await transactionRepo.getTotalBalance(accountId);
         // Truncate balance up to two decimal places without rounding
         res.json({ balance: Math.trunc(balance * 100) / 100 });
@@ -35,6 +41,7 @@ const getTotalBalance = async (req, res) => {
 
 const debitTransaction = async (req, res) => {
     try {
+        const { user } = req;
         const { accountId, cost } = req.body;
 
         if (!accountId) {
@@ -43,6 +50,10 @@ const debitTransaction = async (req, res) => {
 
         if (!cost) {
             return res.status(400).json({ error: 'Need to specify the cost of the debit transaction' });
+        }
+
+        if (user.accountId !== accountId) {
+            return res.status(400).json({ error: 'Not allowed to debit transactions for a different account' });
         }
 
         const totalBalance = await transactionRepo.getTotalBalance(accountId);
@@ -59,6 +70,7 @@ const debitTransaction = async (req, res) => {
 
 const creditTransaction = async (req, res) => {
     try {
+        const { user } = req;
         const { accountId, amount } = req.body;
 
         if (!accountId) {
@@ -67,6 +79,10 @@ const creditTransaction = async (req, res) => {
 
         if (!amount) {
             return res.status(400).json({ error: 'Need to specify the amount of the credit transaction' });
+        }
+
+        if (user.accountId !== accountId) {
+            return res.status(400).json({ error: 'Not allowed to credit transactions for a different account' });
         }
 
         const newCreditTransaction = await transactionRepo.createTransaction({ accountId, type: credit, amount });
@@ -81,6 +97,7 @@ const editTransaction = async (req, res) => {
         const transactionId = req.params.id;
         const transactionToUpdate = req.body;
         const { type: newType = '', accountId: newAccountId = '', cost } = transactionToUpdate;
+        const { user } = req;
 
         const transactionBeforeUpdate = await transactionRepo.getTransactionById(transactionId);
 
@@ -98,6 +115,10 @@ const editTransaction = async (req, res) => {
             return res.status(400).json({ error: 'Cannot update the account ID of the transaction' });
         }
 
+        if (user.accountId !== accountId) {
+            return res.status(400).json({ error: 'Not allowed to edit transactions for a different account' });
+        }
+
         const totalBalance = await transactionRepo.getTotalBalance(accountId);
         if (type === debit && cost && totalBalance - cost < 0) {
             return res.status(400).json({ message: 'This update cannot be processed, otherwise balance will be negative' });
@@ -113,12 +134,20 @@ const editTransaction = async (req, res) => {
 const deleteTransaction = async (req, res) => {
     try {
         const transactionId = req.params.id;
+        const { user } = req;
         const transactionBeforeDelete = await transactionRepo.getTransactionById(transactionId);
+
         if (!transactionBeforeDelete) {
             return res.status(404).json({ error: 'Invalid transaction ID provided' });
         }
         const { type, amount, accountId } = transactionBeforeDelete;
+
+        if (user.accountId !== accountId) {
+            return res.status(400).json({ error: 'Not allowed to delete transactions for a different account' });
+        }
+
         const totalBalance = await transactionRepo.getTotalBalance(accountId);
+
         if (type === credit && totalBalance - amount < 0) {
             return res.status(400).json({ message: 'This deletion cannot be processed, otherwise balance will be negative' });
         }

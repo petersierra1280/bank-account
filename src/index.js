@@ -6,6 +6,7 @@ const seedDatabase = require('./seed');
 const helmet = require('helmet');
 
 const accountTransactionsRoutes = require('./routes/accountTransactions.routes');
+const usersRoutes = require('./routes/users.routes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const app = express();
@@ -18,14 +19,15 @@ app.use(errorMiddleware);
 
 // Routes
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to the bank account transactions API!' })
+    res.json({ message: 'Welcome to the bank account transactions API!' });
 })
 app.use('/transactions', accountTransactionsRoutes);
+app.use('/users', usersRoutes);
 
 (async () => {
     await mongodbConnection();
     await seedDatabase();
-    
+
     app.listen(port, () => {
         console.log(`Server running on port ${port}`);
     });
