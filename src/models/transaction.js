@@ -6,7 +6,8 @@ const { debit, credit } = transactionTypes;
 const transactionSchema = new mongoose.Schema({
     accountId: {
         type: String,
-        required: true
+        required: true,
+        ref: 'User'
     },
     type: {
         type: String,
