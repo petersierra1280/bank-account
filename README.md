@@ -193,3 +193,5 @@ Consider that this configuration expects a MongoDB cluster URL since Mongo Atlas
 - `npm start`: Starts the application (used for production purposes).
 - `npm run dev`: Stars the application using `nodemon`, in order to quickly apply new changes.
 - `npm test`: Run the unit tests for the application using `jest`.
+- `docker build -t bank-account:latest .`: Building the Docker image for the `Dockerfile` placed at the root of the project.
+- `docker run -d -p 3000:3000 --name bank-account_container bank-account:latest`: Run the Docker image generated with the previous step.
