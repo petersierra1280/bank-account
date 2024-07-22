@@ -176,7 +176,7 @@ A Mongo Atlas cluster was created in order to simplify the deployment and config
 
 ## Configuration and execution
 
-To run this application locally, a `.env` file must be created within the `/src` folder (excluded from the Github repo for security reasons). Please use as an example the [`.env.example`](https://github.com/petersierra1280/bank-account/blob/main/src/.env.example) file, which contains the following variables:
+To run this application locally, a `.env` file must be created in the folder (excluded from the Github repo for security reasons). Please use as an example the [`.env.example`](https://github.com/petersierra1280/bank-account/blob/main/.env.example) file, which contains the following variables:
 
 ```
 PORT=3000
@@ -193,5 +193,4 @@ Consider that this configuration expects a MongoDB cluster URL since Mongo Atlas
 - `npm start`: Starts the application (used for production purposes).
 - `npm run dev`: Stars the application using `nodemon`, in order to quickly apply new changes.
 - `npm test`: Run the unit tests for the application using `jest`.
-- `docker build -t bank-account:latest .`: Build the Docker image for the `Dockerfile` placed at the root of the project.
-- `docker run -d -p 3000:3000 --name bank-account_container bank-account:latest`: Run the Docker image generated with the previous step.
+- `docker-compose up --build -d`: Run the application using the Docker. This command needs to be executed within the `src` folder.

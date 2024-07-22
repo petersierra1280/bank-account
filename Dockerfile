@@ -11,7 +11,7 @@ RUN npm install
 COPY . .
 
 # Ensure the .env file is copied to the container
-COPY ./src/.env ./src/.env
+COPY .env .env
 
 EXPOSE ${PORT}
 
