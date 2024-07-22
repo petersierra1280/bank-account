@@ -193,4 +193,4 @@ Consider that this configuration expects a MongoDB cluster URL since Mongo Atlas
 - `npm start`: Starts the application (used for production purposes).
 - `npm run dev`: Stars the application using `nodemon`, in order to quickly apply new changes.
 - `npm test`: Run the unit tests for the application using `jest`.
-- `docker-compose up --build -d`: Run the application using the Docker. This command needs to be executed within the `src` folder.
+- `docker-compose up --build -d`: Run the application using the Docker compose.
