@@ -106,7 +106,7 @@ curl -X POST "http://localhost:3000/transactions/credit" -H "Content-Type: appli
 
 **Example request:**
 ```
-curl -X PUT "http://localhost:3000/transactions/account1" -H "Content-Type: application/json" -d '{"cost": 60}'
+curl -X PUT "http://localhost:3000/transactions/12345" -H "Content-Type: application/json" -d '{"cost": 60}'
 ```
 **Response:**
 ```json
@@ -125,7 +125,7 @@ curl -X PUT "http://localhost:3000/transactions/account1" -H "Content-Type: appl
 
 **Example request:**
 ```
-curl -X DELETE "http://localhost:3000/transactions/account1"
+curl -X DELETE "http://localhost:3000/transactions/12345"
 ```
 **Response:**
 ```json
