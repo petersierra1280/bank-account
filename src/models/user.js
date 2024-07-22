@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const { comparePasswords } = require('../utils/passwords');
 
 const userSchema = new mongoose.Schema(
     {
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
 
 // Compare the given password with the hashed password in the database
 userSchema.methods.comparePassword = async function (password) {
-    return await bcrypt.compare(password, this.password);
+    return await comparePasswords(password, this.password);
 };
 
 // Create indexes for most searched props

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const { hashPassword } = require('../utils/passwords');
 const userRepo = require('../repositories/usersRepository');
 
 const register = async (req, res, next) => {
@@ -11,8 +11,7 @@ const register = async (req, res, next) => {
             return res.status(404).json({ error: 'User already exists' });
         }
         
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await hashPassword(password);
         const user = { accountId, password: hashedPassword };
         await userRepo.createUser(user);
         res.json({ accountId });
