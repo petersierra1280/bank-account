@@ -14,7 +14,7 @@ const register = async (req, res, next) => {
         const hashedPassword = await hashPassword(password);
         const user = { accountId, password: hashedPassword };
         await userRepo.createUser(user);
-        res.json({ accountId });
+        res.status(201).json({ accountId });
     } catch (error) {
         next(error);
     }
