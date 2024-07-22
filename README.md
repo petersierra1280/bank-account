@@ -176,7 +176,7 @@ A Mongo Atlas cluster was created in order to simplify the deployment and config
 
 ## Configuration and execution
 
-To run this application locally, a `.env` file must be created in the folder (excluded from the Github repo for security reasons). Please use as an example the [`.env.example`](https://github.com/petersierra1280/bank-account/blob/main/.env.example) file, which contains the following variables:
+To run this application locally, a `.env` file must be created in the root folder (excluded from the Github repo for security reasons). Please use as an example the [`.env.example`](https://github.com/petersierra1280/bank-account/blob/main/.env.example) file, which contains the following variables:
 
 ```
 PORT=3000
