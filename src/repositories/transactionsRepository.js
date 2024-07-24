@@ -56,7 +56,7 @@ const getTotalBalance = async (accountId) => {
                 }
             }
         }
-    ]);
+    ]).hint({ accountId: 1 });
 
     return totalBalance[0] ? totalBalance[0].total : 0;
 }
